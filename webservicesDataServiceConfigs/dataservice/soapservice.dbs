@@ -1,0 +1,24 @@
+<data transports="http https" serviceGroup="" serviceNamespace="" name="soapservice" enableBatchRequests="true">
+  <description />
+  <config id="sendData">
+    <property name="driverClassName">com.mysql.jdbc.Driver</property>
+    <property name="url">jdbc:mysql://mysql-164883-0.cloudclusters.net:16660/data</property>
+    <property name="username">wso2user</property>
+    <property name="password">wso2user</property>
+  </config>
+  <operation name="publish" returnRequestStatus="true">
+    <call-query href="insertData">
+      <with-param name="id" query-param="id" />
+      <with-param name="name" query-param="name" />
+      <with-param name="age" query-param="age" />
+      <with-param name="address" query-param="address" />
+    </call-query>
+  </operation>
+  <query id="insertData" useConfig="sendData">
+    <sql>INSERT INTO `data`.serverdata (id,name,age,address) values(:id,:name, :age,:address);</sql>
+    <param type="IN" name="id" paramType="SCALAR" sqlType="INTEGER" optional="false" />
+    <param type="IN" name="name" paramType="SCALAR" sqlType="STRING" optional="false" />
+    <param type="IN" name="age" paramType="SCALAR" sqlType="INTEGER" optional="false" />
+    <param type="IN" name="address" paramType="SCALAR" sqlType="STRING" optional="false" />
+  </query>
+</data>
